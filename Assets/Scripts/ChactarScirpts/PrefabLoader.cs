@@ -29,7 +29,7 @@ public class PrefabLoader : MonoBehaviourPunCallbacks
     private void Update()
     {
         AssignPlayerComponents();
-        AssignUIButtons();
+        //AssignUIButtons();
     }
 
     private void AssignPlayerComponents()
@@ -57,18 +57,18 @@ public class PrefabLoader : MonoBehaviourPunCallbacks
         }
     }
 
-    private void AssignUIButtons()
-    {
-        // UI 버튼 찾기
-        button1 = GameObject.Find("btn_Ezreal").GetComponent<Button>();
-        button2 = GameObject.Find("btn_Garen").GetComponent<Button>();
-        button3 = GameObject.Find("btn_Minion").GetComponent<Button>();
+    //private void AssignUIButtons()
+    //{
+    //    // UI 버튼 찾기
+    //    button1 = GameObject.Find("btn_Ezreal").GetComponent<Button>();
+    //    button2 = GameObject.Find("btn_Garen").GetComponent<Button>();
+    //    button3 = GameObject.Find("btn_Minion").GetComponent<Button>();
 
-        // 버튼 클릭 이벤트 등록
-        button1.onClick.AddListener(() => ActivateCharacter(0));
-        button2.onClick.AddListener(() => ActivateCharacter(1));
-        button3.onClick.AddListener(() => ActivateCharacter(2));
-    }
+    //    // 버튼 클릭 이벤트 등록
+    //    button1.onClick.AddListener(() => ActivateCharacter(0));
+    //    button2.onClick.AddListener(() => ActivateCharacter(1));
+    //    button3.onClick.AddListener(() => ActivateCharacter(2));
+    //}
 
     // 캐릭터와 캔버스를 활성화하는 함수
     void ActivateCharacter(int index)
