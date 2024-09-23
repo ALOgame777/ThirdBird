@@ -86,7 +86,7 @@ public class ConManager : MonoBehaviourPunCallbacks
 
         // 멀티플레이 컨텐츠 즐길 수 있는 상태
         // GameScene으로 이동!
-        PhotonNetwork.LoadLevel("GameMapSceneL");
+        PhotonNetwork.LoadLevel("SecondBird");
 
     }
 }
