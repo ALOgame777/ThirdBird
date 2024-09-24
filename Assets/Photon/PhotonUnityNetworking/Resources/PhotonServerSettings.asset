@@ -35,19 +35,18 @@ MonoBehaviour:
   StartInOfflineMode: 0
   RpcList:
   - ClickRpc
+  - CreateI
   - DestroyRpc
   - DestroySpaceship
+  - DisplayEmotion
   - Fire
   - RespawnSpaceship
   - RPC_ActivateCharacter
-  - CreateI
   - SetTrigger
   - SyncCharacterVisibility
-  - SyncRotation
   - ToggleEKey
   - ToggleGrKey
   - ToggleQKey
-  - DisplayEmotion
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

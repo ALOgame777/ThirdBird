@@ -57,9 +57,10 @@ public class PhotonLogin : MonoBehaviourPunCallbacks
 
     public override void OnJoinedLobby()
     {
+        base.OnJoinedLobby();
         feedbackText.text = "로비에 입장하였습니다";
 
         // 로비 씬으로 전환
-        PhotonNetwork.LoadLevel("LobbyScene");
+        PhotonNetwork.LoadLevel("FirstScene");
     }
 }
