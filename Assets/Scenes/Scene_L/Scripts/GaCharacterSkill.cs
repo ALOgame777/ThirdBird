@@ -9,7 +9,11 @@ public class GaCharacterSkill : MonoBehaviourPunCallbacks
     private Image img_q;  // Image_1 (Q 스킬)
     private Image img_e;  // Image_2 (E 스킬)
     private Image img_r;  // Image_3 (R 스킬)
-
+    Animator anim;
+    private void Awake()
+    {
+        anim = GetComponent<Animator>();
+    }
     private void Start()
     {
         // 캔버스에서 이미지를 자동으로 할당
@@ -38,18 +42,23 @@ public class GaCharacterSkill : MonoBehaviourPunCallbacks
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 UseSkill(img_q);
+                photonView.RPC(nameof(SetTrigger), RpcTarget.All, "Qkey");
             }
 
             // E 스킬을 사용할 때 img_e의 fill amount를 1로 설정
             if (Input.GetKeyDown(KeyCode.E))
             {
+                photonView.RPC(nameof(SetTrigger), RpcTarget.All, "GEKey");
                 UseSkill(img_e);
+
             }
 
             // R 스킬을 사용할 때 img_r의 fill amount를 1로 설정
             if (Input.GetKeyDown(KeyCode.R))
             {
                 UseSkill(img_r);
+                photonView.RPC(nameof(SetTrigger), RpcTarget.All, "GrKey");
+
             }
         }
     }
@@ -59,6 +68,7 @@ public class GaCharacterSkill : MonoBehaviourPunCallbacks
         // 스킬을 사용할 때 FillAmount를 1로 설정하고 서서히 감소시키기 시작
         skillImage.fillAmount = 1;
         StartCoroutine(ReduceFillOverTime(skillImage));
+
     }
 
     private IEnumerator ReduceFillOverTime(Image skillImage)
@@ -78,5 +88,9 @@ public class GaCharacterSkill : MonoBehaviourPunCallbacks
         img_e.fillAmount = 0;
         img_r.fillAmount = 0;
     }
-
+    [PunRPC]
+    void SetTrigger(string parameter)
+    {
+        anim.SetTrigger(parameter);
+    }
 }

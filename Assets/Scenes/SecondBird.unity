@@ -738,6 +738,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 96728698291881286, guid: 5d85f65326fbff6439bfed03c98605f0,
+        type: 3}
+      propertyPath: img_e
+      value: 
+      objectReference: {fileID: 1896355175}
+    - target: {fileID: 96728698291881286, guid: 5d85f65326fbff6439bfed03c98605f0,
+        type: 3}
+      propertyPath: img_q
+      value: 
+      objectReference: {fileID: 438820605}
+    - target: {fileID: 96728698291881286, guid: 5d85f65326fbff6439bfed03c98605f0,
+        type: 3}
+      propertyPath: img_Gr
+      value: 
+      objectReference: {fileID: 621298597}
     - target: {fileID: 2487050462312077045, guid: 5d85f65326fbff6439bfed03c98605f0,
         type: 3}
       propertyPath: sceneViewId
