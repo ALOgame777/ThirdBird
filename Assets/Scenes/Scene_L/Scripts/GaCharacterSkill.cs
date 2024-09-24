@@ -1,201 +1,82 @@
-癤퓎sing Photon.Pun;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
 public class GaCharacterSkill : MonoBehaviourPunCallbacks
 {
-    public float cooldownTime = 5f;
-    private float cooldownTimer = 0f;
-    private bool isCooldown = false;
-    private Canvas ezCanvas;
-    private Canvas gaCanvas;
-    private Image imgCool;
+    private Image img_q;  // Image_1 (Q 스킬)
+    private Image img_e;  // Image_2 (E 스킬)
+    private Image img_r;  // Image_3 (R 스킬)
 
-    [SerializeField] private string ezCanvasName = "EzCanvas";
-    [SerializeField] private string gaCanvasName = "GaCanvas";
+    private void Start()
+    {
+        // 캔버스에서 이미지를 자동으로 할당
+        AssignSkillImages();
 
-    void Start()
+        // 자신의 캐릭터에 대해서만 스킬 UI 초기화
+        if (photonView.IsMine)
+        {
+            ResetSkillFills();  // 스킬 Fill 초기화
+        }
+    }
+
+    private void AssignSkillImages()
+    {
+        // GaCanvas 내에 있는 img_q, img_e, img_Gr 각각의 Image 컴포넌트를 찾아 할당
+        img_q = GameObject.Find("img_q/Image_1").GetComponent<Image>();
+        img_e = GameObject.Find("img_e/Image_2").GetComponent<Image>();
+        img_r = GameObject.Find("img_Gr/Image_3").GetComponent<Image>();
+    }
+
+    private void Update()
     {
         if (photonView.IsMine)
         {
-            FindCanvases();
-            SetupCanvases();
-        }
-    }
-
-    void Update()
-    {
-        if (photonView.IsMine)
-        {
-            if (Input.GetKeyDown(KeyCode.R) && !isCooldown)
+            // Q 스킬을 사용할 때 img_q의 fill amount를 1로 설정
+            if (Input.GetKeyDown(KeyCode.Q))
             {
-
-                UseSkill();
+                UseSkill(img_q);
             }
 
-            if (isCooldown)
+            // E 스킬을 사용할 때 img_e의 fill amount를 1로 설정
+            if (Input.GetKeyDown(KeyCode.E))
             {
-                ApplyCooldown();
+                UseSkill(img_e);
+            }
+
+            // R 스킬을 사용할 때 img_r의 fill amount를 1로 설정
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                UseSkill(img_r);
             }
         }
     }
 
-    void FindCanvases()
+    private void UseSkill(Image skillImage)
     {
-        gaCanvas = FindCanvasByTagOrName("GaCanvas", gaCanvasName);
-        ezCanvas = FindCanvasByTagOrName("EzCanvas", ezCanvasName);
-
-        Debug.Log($"FindCanvases result: gaCanvas = {gaCanvas}, ezCanvas = {ezCanvas}");
+        // 스킬을 사용할 때 FillAmount를 1로 설정하고 서서히 감소시키기 시작
+        skillImage.fillAmount = 1;
+        StartCoroutine(ReduceFillOverTime(skillImage));
     }
 
-    Canvas FindCanvasByTagOrName(string tag, string name)
+    private IEnumerator ReduceFillOverTime(Image skillImage)
     {
-        Canvas foundCanvas = null;
-        GameObject canvasObj = GameObject.FindGameObjectWithTag(tag);
-
-        if (canvasObj == null)
+        // 스킬 사용 후 일정 시간 동안 fillAmount가 서서히 감소하는 로직
+        while (skillImage.fillAmount > 0)
         {
-            canvasObj = GameObject.Find(name);
-        }
-
-        if (canvasObj != null)
-        {
-            foundCanvas = canvasObj.GetComponent<Canvas>();
-            if (foundCanvas != null)
-            {
-                Debug.Log($"{name} found and assigned successfully.");
-            }
-            else
-            {
-                Debug.LogWarning($"{name} found, but it doesn't have a Canvas component.");
-            }
-        }
-        else
-        {
-            Debug.LogWarning($"Could not find Canvas with tag '{tag}' or name '{name}'.");
-        }
-
-        return foundCanvas;
-    }
-
-    public void SetupCanvases()
-    {
-        bool isGaren = transform.GetSiblingIndex() == 1;
-        Debug.Log($"SetupCanvases: isGaren = {isGaren}, SiblingIndex = {transform.GetSiblingIndex()}");
-
-        if (gaCanvas != null)
-        {
-            gaCanvas.gameObject.SetActive(isGaren);
-            Debug.Log($"GaCanvas SetActive: {isGaren}");
-        }
-
-
-        if (ezCanvas != null)
-        {
-            ezCanvas.gameObject.SetActive(!isGaren);
-            Debug.Log($"EzCanvas SetActive: {!isGaren}");
-        }
-        else
-        {
-            Debug.LogWarning("EzCanvas is null in SetupCanvases");
-        }
-
-        Canvas activeCanvas = isGaren ? gaCanvas : ezCanvas;
-        if (activeCanvas != null)
-        {
-            FindAndAssignImgCool(activeCanvas);
-        }
-        else
-        {
-            Debug.LogWarning($"Active canvas not found. isGaren: {isGaren}");
+            skillImage.fillAmount -= Time.deltaTime / 5; // 5초 동안 감소
+            yield return null;
         }
     }
 
-    void FindAndAssignImgCool(Canvas targetCanvas)
+    private void ResetSkillFills()
     {
-        if (targetCanvas != null)
-        {
-            imgCool = FindImageInCanvas(targetCanvas, "img_r", "Image_3") ??
-                      FindImageInCanvas(targetCanvas, "img_e", "Image_2") ??
-                      FindImageInCanvas(targetCanvas, "img_q", "Image_1");
-
-            if (imgCool == null)
-            {
-                Debug.LogWarning("Couldn't find any skill cooldown images. Cooldown display may not work correctly.");
-            }
-        }
-        else
-        {
-            Debug.LogWarning("targetCanvas is null in FindAndAssignImgCool");
-        }
+        // 초기 스킬 상태 설정 (모든 스킬의 fill amount를 0으로 초기화)
+        img_q.fillAmount = 0;
+        img_e.fillAmount = 0;
+        img_r.fillAmount = 0;
     }
 
-    Image FindImageInCanvas(Canvas canvas, string parentName, string imageName)
-    {
-        if (canvas == null)
-        {
-            Debug.LogWarning($"Canvas is null when searching for {parentName}/{imageName}");
-            return null;
-        }
-
-        Transform parentTransform = canvas.transform.Find(parentName);
-        if (parentTransform != null)
-        {
-            Transform imageTransform = parentTransform.Find(imageName);
-            if (imageTransform != null)
-            {
-                Image image = imageTransform.GetComponent<Image>();
-                if (image != null)
-                {
-                    Debug.Log($"{imageName} found and assigned successfully.");
-                    return image;
-                }
-                else
-                {
-                    Debug.LogWarning($"Image component not found on {imageName}.");
-                }
-            }
-            else
-            {
-                Debug.LogWarning($"{imageName} not found under {parentName}.");
-            }
-        }
-        else
-        {
-            Debug.LogWarning($"{parentName} not found in Canvas.");
-        }
-        return null;
-    }
-
-    void UseSkill()
-    {
-        Debug.Log("Skill used!");
-        isCooldown = true;
-        cooldownTimer = cooldownTime;
-
-        if (imgCool != null)
-        {
-            imgCool.fillAmount = 1;
-        }
-        else
-        {
-            Debug.LogWarning("imgCool is null in UseSkill");
-        }
-    }
-
-    void ApplyCooldown()
-    {
-        cooldownTimer -= Time.deltaTime;
-
-        if (cooldownTimer <= 0f)
-        {
-            isCooldown = false;
-            cooldownTimer = 0f;
-        }
-
-        if (imgCool != null)
-        {
-            imgCool.fillAmount = cooldownTimer / cooldownTime;
-        }
-    }
 }
