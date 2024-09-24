@@ -32,7 +32,6 @@ public class CharacterCanvasManager : MonoBehaviourPunCallbacks
         {
             if (Input.GetKeyDown(KeyCode.Alpha1)) SetLocalActiveCharacter(0);
             if (Input.GetKeyDown(KeyCode.Alpha2)) SetLocalActiveCharacter(1);
-            if (Input.GetKeyDown(KeyCode.Alpha3)) SetLocalActiveCharacter(2);
         }
     }
 
