@@ -6,6 +6,7 @@ using UnityEngine;
 public class Character : MonoBehaviourPunCallbacks
 {
     public float moveSpeed = 5f;
+    public float rotationSpeed = 720f; // 회전 속도 (초당 360도 기준)
 
     private Transform cameraTransform;
 
@@ -38,6 +39,10 @@ public class Character : MonoBehaviourPunCallbacks
 
             // 캐릭터 이동
             transform.position += movement * moveSpeed * Time.deltaTime;
+
+            // 캐릭터가 이동하는 방향으로 회전
+            Quaternion targetRotation = Quaternion.LookRotation(movement);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
     }
 }
