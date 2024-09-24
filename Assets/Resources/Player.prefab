@@ -601,7 +601,7 @@ PrefabInstance:
     - target: {fileID: 7997631292324179133, guid: 2485fe779c21fa340b7c8eaf4b6a8720,
         type: 3}
       propertyPath: m_SynchronizeParameters.Array.data[2].Name
-      value: EKey
+      value: GrKey
       objectReference: {fileID: 0}
     - target: {fileID: 7997631292324179133, guid: 2485fe779c21fa340b7c8eaf4b6a8720,
         type: 3}
@@ -611,7 +611,7 @@ PrefabInstance:
     - target: {fileID: 7997631292324179133, guid: 2485fe779c21fa340b7c8eaf4b6a8720,
         type: 3}
       propertyPath: m_SynchronizeParameters.Array.data[3].Name
-      value: GrKey
+      value: GEKey
       objectReference: {fileID: 0}
     - target: {fileID: 7997631292324179133, guid: 2485fe779c21fa340b7c8eaf4b6a8720,
         type: 3}

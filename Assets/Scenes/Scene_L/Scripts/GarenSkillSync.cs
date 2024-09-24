@@ -21,7 +21,7 @@ public class GarenSkillSync : MonoBehaviourPunCallbacks
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
-            photonView.RPC("EKey", RpcTarget.All);
+            photonView.RPC("GEKey", RpcTarget.All);
         }
         if (Input.GetKeyDown(KeyCode.R))
         {
