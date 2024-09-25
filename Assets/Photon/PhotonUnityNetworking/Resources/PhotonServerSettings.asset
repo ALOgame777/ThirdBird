@@ -15,7 +15,7 @@ MonoBehaviour:
   AppSettings:
     AppIdRealtime: da7a9793-c38e-47bb-b7f1-9c30410a18f4
     AppIdFusion: 
-    AppIdChat: 
+    AppIdChat: 8b00f650-7e21-4d16-953d-1522483993c2
     AppIdVoice: 
     AppVersion: 1.0
     UseNameServer: 1
@@ -47,6 +47,7 @@ MonoBehaviour:
   - ToggleEKey
   - ToggleGrKey
   - ToggleQKey
+  - AddChat
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

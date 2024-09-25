@@ -17,7 +17,7 @@ public class CameraFollow : MonoBehaviourPunCallbacks
 
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
         FindLocalPlayer();
     }
 
