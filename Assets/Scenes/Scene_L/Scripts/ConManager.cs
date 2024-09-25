@@ -69,7 +69,7 @@ public class ConManager : MonoBehaviourPunCallbacks
     }
     private void Awake()
     {
-        Screen.SetResolution(768, 768, false);
+        Screen.SetResolution(1920, 1080, false);
     }
     // 방 생성 성공 했을 때 호출되는 함수
     public override void OnCreatedRoom()
