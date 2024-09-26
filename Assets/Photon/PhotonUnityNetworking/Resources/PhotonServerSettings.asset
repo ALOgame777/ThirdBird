@@ -34,6 +34,7 @@ MonoBehaviour:
   RunInBackground: 1
   StartInOfflineMode: 0
   RpcList:
+  - AddChat
   - ClickRpc
   - CreateI
   - DestroyRpc
@@ -42,12 +43,12 @@ MonoBehaviour:
   - Fire
   - RespawnSpaceship
   - RPC_ActivateCharacter
+  - SetNickname
   - SetTrigger
   - SyncCharacterVisibility
   - ToggleEKey
   - ToggleGrKey
   - ToggleQKey
-  - AddChat
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

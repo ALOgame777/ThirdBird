@@ -6,7 +6,6 @@ using Photon.Realtime;
 
 public class ConManager : MonoBehaviourPunCallbacks
 {
-    [SerializeField] private 
     // Start is called before the first frame update
     void Start()
     {
@@ -33,8 +32,6 @@ public class ConManager : MonoBehaviourPunCallbacks
 
     public void JoinLobby()
     {
-        // 닉네임 설정
-        PhotonNetwork.NickName = "이준수" + Random.Range(1, 1000);
         // 기본 Lobby 입장
         PhotonNetwork.JoinLobby();
     }

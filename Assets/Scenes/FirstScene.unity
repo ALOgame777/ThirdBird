@@ -496,6 +496,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57235cc4c2e19c24b801037c44b980dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerCanvasPrefab: {fileID: 0}
 --- !u!1 &1020386313
 GameObject:
   m_ObjectHideFlags: 0
